@@ -1,0 +1,98 @@
+h1 {
+text-align: center;
+color: white;
+
+}
+
+i {
+
+font-size: bold
+;
+}
+
+div.jumbotron {
+  background-color:black;
+  height: 200px;
+}
+.image-wrapper{
+    float: right;
+    width: 900px;
+   margin-top: -100px;
+}
+a.startBtn{
+
+ display: inline-block;
+  padding: 25px 35px;
+  font-size: 45px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 9px #999;
+
+}
+section.text-wrapper {
+    font-size: 35px;
+}
+.port{
+   margin-top:60px; ;
+
+    margin-left: 0px;
+padding-right: 80px;
+}
+.textsec {
+display: inline-block;
+  padding: 25px 35px;
+  font-size: 25px;
+  text-align: center;
+  width: 600px;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 9px #999;
+  margin-left:600px ;
+}
+
+button{
+
+ display: inline-block;
+  padding: 25px 35px;
+  font-size: 30px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color:blue;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 9px #999;
+
+}
+#Quizbox{
+
+display: inline-block;
+  padding: 25px 35px;
+  font-size: 35px;
+  text-align: center;
+  width: 600px;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 9px #999;
+  margin-left:600px ;
+
+}
+audio {
+  display: none;
+}

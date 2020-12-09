@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <style>
+        body {
+            background-image: url(./800px_COLOURBOX31347717.jpg);
+        }
+    </style>
+    <div class="jumbotron">
+        <div class="container">
+            <h1>Coding Quiz</h1>
+            <style>
+                h1 {
+                    color: blue;
+                }
+            </style>
+        </div>
+        <div class="left">
+            <a onclick="addScore()" href="#">
+                <h3>Highscore</h3>
+                <style>
+                    h3 {
+                        color: blue;
+                    }
+                </style>
+            </a>
+        </div>
+        <div class="letsstart">
+            <h2>Time: <span id="time">0</span></h2>
+            <style>
+                h2 {
+                    color: blue;
+
+                }
+            </style>
+        </div>
+    </div>
+    <section class="Sec Page">
+        <section class="textsec ">
+            <header>
+                Quiz rules:
+                <br>
+                You will have 4 options for each question and 30 seconds to answer each question.
+                <br>
+                Every time your answer is wrong,
+                10 seconds will be taken from your time.
+                <br>
+                The Quiz is 3.5 minutes long.
+                <br>
+                The timer will start when you start the Quiz and when it hits zero the quiz is over.
+                Good luck!!
+            </header>
+            <button onclick="start()">StartQuiz!</button>
+
+            <audio controls id="music">
+                <source src="./credulous-512.mp3" type="audio/mpeg">
+                <audio controls id="right">
+                    <source src="./cheer.mp3" type="audio/mpeg">
+
+                </audio>
+        </section>
+        <section id="Quizstart">
+
+            <div id="Quizbox">
+
+            </div>
+        </section>
+    </section>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+
+        // questions, arrray of the quiz 
+        var questions = [{
+            title: "Which of the following tags used to make a space betwwen lines?",
+            choices: ["hr", "h1", "p", "a"],
+            answer: "hr"
+        },
+        {
+            title: "If we want define style for an unique element, then which css selector will we use?",
+            choices: ["id", "name", "text", "class"],
+            answer: "id"
+        },
+        {
+            title: "If we want to wrap a block of text around an image, which css property will we use?",
+            choices: ["wrap", "push", "float", "align"],
+            answer: "float"
+        },
+        {
+            title: "Which of the following is not Javascript frameworks or libraries?",
+            choices: ["polymer", "meteor", "cassandra", "JQuery"],
+            answer: "cassandra"
+        },
+        {
+            title: "Which of the following is not JavaScript Data Types?",
+            choices: ["Undefiend", "Number", " Boolean", "Float"],
+            answer: "Float"
+        },
+        {
+            title: "What is the original name of JavaScript?",
+            choices: ["LiveScript", "EScript", "Mocha", "JavaScript"],
+            answer: "Mocha"
+        },
+        {
+            title: "Which of the following method checks if its argument is not a number?",
+            choices: ["isNaN()", " nonNaN()", " NaN()", "None of the above"],
+            answer: "isNaN()"
+        }
+        ]
+        var score = 0;
+        var Question = -1;
+        var timel = 0;
+        var timer;
+
+        // Start Function start the timer and put the time value in the time input and empty the div.
+        function start() {
+
+            timel = 210;
+            document.getElementById("time").innerHTML = timel;
+
+            timer = setInterval(function () {
+
+                $("#textsec").empty();
+                timel--;
+                document.getElementById("time").innerHTML = timel;
+                if (timel <= 0) {
+                    clearInterval(timer);
+                    endGame();
+                }
+            }, 1000);
+
+            next();
+        }
+        // end game function to end the game by asking for the name  and show the final  score  
+        function endGame() {
+            clearInterval(timer);
+            var quiz = `
+    <h1>Game over!</h1>
+    <h3>You got a ` + score + ` /7!</h3>
+   <h3> You got ` + score / 1 + `  questions correct! </h3>
+    <input type="text" id="Test" placeholder="First name"> 
+     <button onclick="FinScore()">Set score!</button>`;
+
+            document.getElementById("Quizbox").innerHTML = quiz;
+        }
+        // set localstorage value for the hige score to get to them later
+        function FinScore() {
+            localStorage.setItem("highscore", score);
+            localStorage.setItem("highscoreName", document.getElementById('Test').value);
+            addScore();
+        }
+        // get the highe score val from the local storage and show it 
+        function addScore() {
+            var quiz = `
+     <h1>` + localStorage.getItem("highscoreName") + ` Score is :</h1>
+    <h3>` + localStorage.getItem("highscore") + `</h3>`
+
+            document.getElementById("Quizbox").innerHTML = quiz;
+        }
+        // some sound effects
+        var myMusic = document.getElementById("music");
+        // in correct answer take 10 sec from the timer and play a silly sound
+        function incorrect() {
+            myMusic.play();
+            timel -= 10;
+
+            next();
+
+        }
+        // some sound effects
+        var good = document.getElementById("right");
+        // correct answer to add one point to the score and play a silly sound.
+        function correct() {
+            good.play();
+            score += 1;
+            next();
+        }
+        // to loop over questions and relace one of the div with a new one that have the questions.
+        function next() {
+
+            Question++;
+
+            if (Question > questions.length - 1) {
+                endGame();
+                return
+            }
+
+
+
+            var quiz = "<h2>" + questions[Question].title + "</h2>"
+            $(".textsec ").replaceWith("Quizbox");
+
+            for (var Loop = 0; Loop < questions[Question].choices.length; Loop++) {
+                var answerclick = "<button onclick=\"[answer]\">[CHO]</button>";
+                answerclick = answerclick.replace("[CHO]", questions[Question].choices[Loop]);
+                if (questions[Question].choices[Loop] == questions[Question].answer) {
+                    answerclick = answerclick.replace("[answer]", "correct()");
+                } else {
+                    answerclick = answerclick.replace("[answer]", "incorrect()");
+                }
+                quiz += answerclick
+            }
+
+
+            document.getElementById("Quizbox").innerHTML = quiz;
+        }
+
+    </script>
+</body>
+
+</html>
